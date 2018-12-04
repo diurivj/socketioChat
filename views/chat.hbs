@@ -1,0 +1,26 @@
+<div class="chat">
+  <div class="messages">
+    <ul id="messages1"></ul>
+  </div>
+  <div class="send-message">
+    <form action="/chat" method="POST">
+      <input id="body-message" type="text" name="message">
+      <input id="send-message" type="submit" value="Send" height="100">
+    </form>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+<script>
+  const socket = io();
+  document.getElementById('send-message').addEventListener('click', e => {
+    e.preventDefault();
+    socket.emit('chat', document.getElementById('body-message').value);
+    document.getElementById('body-message').value = '';
+  });
+  socket.on('chat', msg => {
+    let li = document.createElement('li');
+    li.innerText = `${msg} by ${localStorage.getItem('user')}`; 
+    document.getElementById('messages1').appendChild(li);
+  });
+</script>
