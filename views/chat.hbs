@@ -20,7 +20,7 @@
   });
   socket.on('chat', msg => {
     let li = document.createElement('li');
-    li.innerText = `${msg} by ${localStorage.getItem('user')}`; 
+    li.innerText = msg; 
     document.getElementById('messages1').appendChild(li);
   });
 </script>
